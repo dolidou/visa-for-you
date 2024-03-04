@@ -33,5 +33,9 @@ Route::get('/get-visa-types/{pays_id}', 'App\Http\Controllers\DemandeRdvControll
 Route::get('/check-rdv-exists', 'App\Http\Controllers\DemandeRdvController@checkRdvExists')->name('check.rdv.exists');
 Route::get('/get-disponibilites/{type_visa_id}/{pays_id}', 'App\Http\Controllers\DemandeRdvController@getDisponibilites')->name('get.disponibilites');
 Route::get('/listerdv', 'App\Http\Controllers\ListeRdvController@index');
+Route::resource('/listerdv', 'App\Http\Controllers\ListeRdvController')->names('listerdv');
+Route::get('/listerdv/download/{id}', 'App\Http\Controllers\ListeRdvController@downloadFile')->name('listerdv.download');
+
+
 
 

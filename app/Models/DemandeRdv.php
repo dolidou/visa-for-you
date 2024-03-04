@@ -29,4 +29,9 @@ class DemandeRdv extends Model
     return $this->hasMany(Statut::class, 'demande_rdv_id', 'id');
 }
 
+public function uploads()
+{
+    return $this->hasMany(Upload::class, 'demande_rdv_id', 'id');
+}
+
 }

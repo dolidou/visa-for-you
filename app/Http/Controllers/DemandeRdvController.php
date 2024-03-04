@@ -23,14 +23,20 @@ class DemandeRdvController extends Controller
      */
     public function index()
     {
-       $pays=Pays::select('pays.id','pays.code as code_pays','pays.libelle')
+       $paysnormal=Pays::select('pays.id','pays.code as code_pays','pays.libelle')
                  ->distinct()
                   ->where('type_visas.visa','normal')
                   ->Join('pays_type_visa','pays_type_visa.pays_id','pays.id')
                   ->Join('type_visas','pays_type_visa.type_visa_id','type_visas.id')
                   ->get();
+        $payselectronique=Pays::select('pays.id','pays.code as code_pays','pays.libelle')
+                 ->distinct()
+                  ->where('type_visas.visa','electronique')
+                  ->Join('pays_type_visa','pays_type_visa.pays_id','pays.id')
+                  ->Join('type_visas','pays_type_visa.type_visa_id','type_visas.id')
+                  ->get();
         // dd($pays);
-       return view('visa.rdv',compact('pays'));
+       return view('visa.rdv',compact('paysnormal','payselectronique'));
       
     }
 
@@ -179,14 +185,14 @@ if ($request->hasFile('uploads')) {
 public function checkRdvExists(Request $request)
 {
     
-    $exists = DemandeRdv::join('statuts', 'demande_rdvs.id', '=', 'statuts.demande_rdv_id')
-    ->where('demande_rdvs.num_passport', $request->num_passport)
-    ->where('demande_rdvs.type_visa_id', $request->type_visa_id)
-    ->where('demande_rdvs.pays_id', $request->pays_id)
-    ->where('statuts.code', '01')
+    $exists = DemandeRdv::where('num_passport', $request->num_passport)
+    ->where('type_visa_id', $request->type_visa_id)
+    ->where('pays_id', $request->pays_id)
+    ->where('etat', '0')
     ->exists();
 
 
+    // dd($exists,$request->num_passport);
     return response()->json(['exists' => $exists]);
 }
 

@@ -5,37 +5,151 @@
 @section('title', 'RDV')
 
 @section('content')
-    <h1>Welcome to my website!</h1>
+    <div>
+        <h2>Rendez vous de Visa </h2>
+        <br>
+        <div class="row" id="checking">
+            <div class="col-6">
+                <input type="checkbox" id="visa_normal" name="visa_normal">
+                <label for="visa_normal">RDV Visa Normal</label><br>
+            </div>
+            <div class="col-6">
+                <input type="checkbox" id="visa_electronique" name="visa_electronique">
+                <label for="visa_electronique">RDV Visa Electronique</label><br>
+            </div>
+
+        </div>
+    </div>
+    <div id="visa_normal_form" style="display: none;">
     <div class="row">
+            <div class="col-6">
+                <div class="card shadow mb-4" id="initial">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Prise de RDV VISA Normal</h6>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('demanderdv.store') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label for="pays">Pays</label>
+                                <select class="form-control" id="pays" name="pays_id">
+                                    <option value="">Sélectionner un pays</option>
+                                    @foreach ($paysnormal as $pay)
+                                        <option value="{{ $pay->id }}" data-icon="flag-icon flag-icon-fr">
+                                            {{ $pay->libelle }}</option>
+                                    @endforeach
+                                </select>
+                                <br>
+                                <div class="form-group" id="type" style="display: none;">
+                                    <label for="type_visa">Type de Visa</label>
+                                    <select class="form-control" id="type_visa" name="type_visa_id">
+                                        <option value="">Sélectionner un type de visa</option>
+                                    </select>
+                                </div>
+                                <div id="num_passport_field" style="display:none;">
+                                    <label for="num_passport">Numéro de passeport</label>
+                                    <input type="text" class="form-control" id="num_passport" name="num_passport">
+                                    <br>
+                                    <button type="button" class="btn btn-primary" id="check_rdv_button">suivant</button>
+                                </div>
+                                <div id="verification_message">
+
+                                </div>
+
+
+                            </div>
+                            <!-- Ajoutez les autres champs du formulaire ici -->
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card shadow mb-4" id="suite" style="display: none">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Prise de RDV VISA</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="nom">Nom</label>
+                            <input type="text" class="form-control" id="nom" name="nom">
+                        </div>
+                        <div class="form-group">
+                            <label for="prenom">Prénom</label>
+                            <input type="text" class="form-control" id="prenom" name="prenom">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="tel">Numéro de téléphone</label>
+                            <input type="tel" class="form-control" id="tel" name="num_tel">
+                        </div>
+                        <div class="form-group">
+                            <label for="date_rdv">Date de rendez-vous souhaitée</label>
+                            <input type="date" class="form-control" id="date_rdv" name="date_rdv">
+                        </div>
+                        <label for="files" style="color:brown"><i class="fas fa-hand-point-down"></i> Importer la copie de la première page de votre passport 
+                        </label>
+
+                        <input type="file" name="uploads[]" id="files" multiple>
+                        {{-- <div id="fileInputsContainer">
+                        <!-- Container pour les champs d'upload de fichiers -->
+                        <div class="fileInputContainer">
+                            <button class="attachButton btn-primary" onclick="addFileInput(event)"><i
+                                    class="fas fa-paperclip"></i>Joindre un fichier</button>
+                            <input type="file" name="uploads[]" class="fileInput" id="uploadFile" style="display:none">
+                            <button class="deleteButton btn-danger" onclick="deleteFileInput(this)" style="display:none"><i
+                                    class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </div> --}}
+                    </div>
+                </div>
+            </div>
+        
+        <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary" id="soumission" style="display: none">Soumettre</button>
+        </div>
+        <br>
+
+        </form>
+    </div>
+    </div>
+
+<div id="visa_electronique_form" style="display: none;">
+    <div class="row" >
+
         <div class="col-6">
             <div class="card shadow mb-4" id="initial">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Prise de RDV VISA</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Prise de RDV VISA Electronique</h6>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('demanderdv.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="pays">Pays</label>
-                            <select class="form-control" id="pays" name="pays_id">
+                            <select class="form-control" id="pays_electronique" name="pays_id">
                                 <option value="">Sélectionner un pays</option>
-                                @foreach ($pays as $pay)
+                                @foreach ($payselectronique as $pay)
                                     <option value="{{ $pay->id }}" data-icon="flag-icon flag-icon-fr">
                                         {{ $pay->libelle }}</option>
                                 @endforeach
                             </select>
                             <br>
-                            <div class="form-group" id="type" style="display: none;">
-                                <label for="type_visa">Type de Visa</label>
-                                <select class="form-control" id="type_visa" name="type_visa_id">
+                            <div class="form-group" id="type_electronique" style="display: none;">
+                                <label for="type_visa_electronique">Type de Visa</label>
+                                <select class="form-control" id="type_visa_electronique" name="type_visa_id">
                                     <option value="">Sélectionner un type de visa</option>
                                 </select>
                             </div>
-                            <div id="num_passport_field" style="display:none;">
-                                <label for="num_passport">Numéro de passeport</label>
-                                <input type="text" class="form-control" id="num_passport" name="num_passport">
+                            <div id="num_passport_field_electronique" style="display:none;">
+                                <label for="num_passport_electronique">Numéro de passeport</label>
+                                <input type="text" class="form-control" id="num_passport_electronique"
+                                    name="num_passport">
                                 <br>
-                                <button type="button" class="btn btn-primary" id="check_rdv_button">suivant</button>
+                                <button type="button" class="btn btn-primary"
+                                    id="check_rdv_button_electronique">suivant</button>
                             </div>
                             <div id="verification_message">
 
@@ -49,7 +163,7 @@
             </div>
         </div>
         <div class="col-6">
-            <div class="card shadow mb-4" id="suite" style="display: none">
+            <div class="card shadow mb-4" id="suite_electronique" style="display: none">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Prise de RDV VISA</h6>
                 </div>
@@ -74,6 +188,8 @@
                         <label for="date_rdv">Date de rendez-vous souhaitée</label>
                         <input type="date" class="form-control" id="date_rdv" name="date_rdv">
                     </div>
+                    <label for="files" style="color:brown"><i class="fas fa-hand-point-down"></i> Importer la copie de la première page de votre passport 
+                        <br>
                     <input type="file" name="uploads[]" id="files" multiple>
                     {{-- <div id="fileInputsContainer">
                         <!-- Container pour les champs d'upload de fichiers -->
@@ -89,13 +205,16 @@
             </div>
         </div>
         <div class="col-12 text-center">
-            <button type="submit" class="btn btn-primary" id="soumission" style="display: none">Soumettre</button>
+            <button type="submit" class="btn btn-primary" id="soumission_electronique"
+                style="display: none">Soumettre</button>
         </div>
         <br>
 
         </form>
 
     </div>
+</div>
+  
 
 @endsection
 
@@ -158,7 +277,14 @@
     </script>
     <script>
         $(document).ready(function() {
+         
             $('#pays').change(function() {
+                $('#type_visa').val('').change();
+                $('#num_passport').val('');
+                $('#verification_message').empty();
+                $('#suite').hide();
+                $('#soumission').hide();
+                $('#check_rdv_button').show();
                 var paysId = $(this).val();
                 document.getElementById('type').style.display = "block"
                 if (paysId) {
@@ -184,38 +310,19 @@
     </script>
     <script>
         $('#type_visa').change(function() {
-            var type_visa_id = $(this).val();
-            var pays_id = $('#pays').val();
-            if (type_visa_id) {
-                $.ajax({
-                    url: '/get-disponibilites/' + type_visa_id + '/' + pays_id,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        if (data.length === 0) {
-                            alert('Aucune disponibilité trouvée.');
-                            $('#num_passport_field').hide();
-                        } else {
-                            $('#num_passport_field').show();
-                            var minDate = new Date(data[0].date_disponible_debut.replace(
-                                /(\d{2})\/(\d{2})\/(\d{4})/, '$3-$2-$1'));
-                            var maxDate = new Date(data[0].date_disponible_fin.replace(
-                                /(\d{2})\/(\d{2})\/(\d{4})/, '$3-$2-$1'));
-                            // Définir les valeurs min et max du champ date
-                            $('#date_rdv').attr('min', minDate.toISOString().split('T')[0]);
-                            $('#date_rdv').attr('max', maxDate.toISOString().split('T')[0]);
-                        }
-                    }
-                });
-            } else {
-                $('#num_passport_field').hide();
-            }
+            $('#num_passport_field').show();
+            $('#num_passport').val('');
+            $('#verification_message').empty();
+            $('#suite').hide();
+            $('#soumission').hide();
+            $('#check_rdv_button').show();
         });
 
         $('#check_rdv_button').on('click', function() {
             var num_passport = $('#num_passport').val();
             var type_visa_id = $('#type_visa').val();
             var pays_id = $('#pays').val();
+            console.log(num_passport);
 
             $.ajax({
                 url: '/check-rdv-exists',
@@ -224,7 +331,9 @@
                     num_passport: num_passport,
                     type_visa_id: type_visa_id,
                     pays_id: pays_id
+
                 },
+
                 success: function(response) {
                     if (response.exists) {
                         alert(
@@ -232,48 +341,8 @@
                         );
                     } else {
                         $('#check_rdv_button').hide();
-                        $.ajax({
-                            url: '/get-disponibilites/' + type_visa_id + '/' + pays_id,
-                            type: 'GET',
-                            dataType: 'json',
-                            success: function(data) {
-                                if (data.length === 0) {
-                                    alert('Aucune disponibilité trouvée.');
-                                } else {
-                                    var disponibilites = data;
-                                    var calendrierHtml =
-                                        '<h5>Calendrier des disponibilités</h5><ul>';
-                                    disponibilites.forEach(function(disponibilite) {
-                                        var dateDebut = new Date(disponibilite
-                                            .date_disponible_debut);
-                                        var dateFin = new Date(disponibilite
-                                            .date_disponible_fin);
-                                        var dateDebutFormatted = new Intl
-                                            .DateTimeFormat('fr-FR', {
-                                                day: 'numeric',
-                                                month: 'long',
-                                                year: 'numeric'
-                                            }).format(dateDebut);
-                                        var dateFinFormatted = new Intl
-                                            .DateTimeFormat('fr-FR', {
-                                                day: 'numeric',
-                                                month: 'long',
-                                                year: 'numeric'
-                                            }).format(dateFin);
-                                        calendrierHtml += '<li>Du ' +
-                                            dateDebutFormatted + ' au ' +
-                                            dateFinFormatted + '</li>';
-                                    });
-                                    calendrierHtml += '</ul>';
-                                    calendrierHtml +=
-                                        '<button class="btn btn-primary" id="continuer">Continuer</button>';
-
-                                    $('#initial .card-body').append(
-                                        calendrierHtml
-                                    );
-                                }
-                            }
-                        });
+                        $('#suite').show();
+                        $('#soumission').show();
                     }
 
                 }
@@ -282,11 +351,113 @@
         });
     </script>
     <script>
-        $(document).on('click', '#continuer', function() {
-            // Créer le formulaire avec les champs nécessaires
-            $('#suite').show();
-            $('#soumission').show();
-            $('#continuer').hide();
+        $(document).ready(function() {
+            $('#pays_electronique').change(function() {
+                $('#type_visa_electronique').val('').change();
+                $('#num_passport_electronique').val('');
+                $('#verification_message').empty();
+                $('#suite_electronique').hide();
+                $('#soumission_electronique').hide();
+                $('#check_rdv_button_electronique').show();
+                var paysId = $(this).val();
+                console.log(paysId);
+                document.getElementById('type_electronique').style.display = "block"
+                if (paysId) {
+                    $.ajax({
+                        url: '/get-visa-types/' + paysId,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#type_visa_electronique').empty();
+                            $('#type_visa_electronique').append(
+                                '<option hidden>Selectionnez le type de visa</option>');
+                            $.each(data, function(key, value) {
+                                $('#type_visa_electronique').append('<option value="' +
+                                    key + '">' +
+                                    value + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#type_visa_electronique').empty();
+                }
+            });
+        });
+    </script>
+    <script>
+        $('#type_visa_electronique').change(function() {
+            $('#num_passport_field_electronique').show();
+            $('#num_passport_electronique').val('');
+            $('#verification_message').empty();
+            $('#suite_electronique').hide();
+            $('#soumission_electronique').hide();
+            $('#check_rdv_button_electronique').show();
+        });
+
+        $('#check_rdv_button_electronique').on('click', function() {
+            var num_passport = $('#num_passport_electronique').val();
+            var type_visa_id = $('#type_visa_electronique').val();
+            var pays_id = $('#pays').val();
+            console.log(num_passport);
+
+            $.ajax({
+                url: '/check-rdv-exists',
+                type: 'GET',
+                data: {
+                    num_passport: num_passport,
+                    type_visa_id: type_visa_id,
+                    pays_id: pays_id
+
+                },
+
+                success: function(response) {
+                    if (response.exists) {
+                        alert(
+                            'Un rendez-vous est déjà en cours pour ce numéro de passeport, ce type de visa, ce pays et ce statut.'
+                        );
+                    } else {
+                        $('#check_rdv_button_electronique').hide();
+                        $('#suite_electronique').show();
+                        $('#soumission_electronique').show();
+                    }
+
+                }
+
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('visa_normal').addEventListener('change', function() {
+            var visaNormalForm = document.getElementById('visa_normal_form');
+            var visaElectroniqueForm = document.getElementById('visa_electronique_form');
+            var checkingForm = document.getElementById('checking');
+
+
+            if (this.checked) {
+                visaNormalForm.style.display = 'block';
+                visaElectroniqueForm.style.display = 'none';
+                document.getElementById('visa_electronique').checked = false;
+                checkingForm.style.display = 'none';
+            } else {
+                visaNormalForm.style.display = 'none';
+
+            }
+        });
+
+        document.getElementById('visa_electronique').addEventListener('change', function() {
+            var visaElectroniqueForm = document.getElementById('visa_electronique_form');
+            var visaNormalForm = document.getElementById('visa_normal_form');
+            var checkingForm = document.getElementById('checking');
+
+            if (this.checked) {
+                visaElectroniqueForm.style.display = 'block';
+                visaNormalForm.style.display = 'none';
+                document.getElementById('visa_normal').checked = false;
+                checkingForm.style.display = 'none';
+
+            } else {
+                visaElectroniqueForm.style.display = 'none';
+            }
         });
     </script>
 
