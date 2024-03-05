@@ -19,18 +19,20 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>N° de passeport</th>
-                            <th>Date RDV</th>
-                            <th>Nom du client</th>
-                            <th>Pays</th>
-                            <th class="w-25">Type RDV</th>
-                            <th>Fichier Joints</th>
-                            <th>Statut</th>
-                            <th>Action</th>
+                            <th>ID</th>
+                            <th style="width: 10%">N° de passeport</th>
+                            <th style="width: 10%">Date RDV</th>
+                            <th style="width: 10%">Nom du client</th>
+                            <th style="width: 10%">Pays</th>
+                            <th style="width: 15%">Type RDV</th>
+                            <th style="width: 10%">Fichier Joints</th>
+                            <th style="width: 10%">Statut</th>
+                            <th style="width: 10%">Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
+                            <th>ID</th>
                             <th>Numéro de passeport</th>
                             <th>Date du rendez-vous</th>
                             <th>Nom du client</th>
@@ -44,35 +46,39 @@
                     <tbody>
                         @foreach ($rdvs->where('etat', 0) as $rdv)
                             <tr>
+                                <td>{{ $rdv->id }}</td>
                                 <td>{{ $rdv->num_passport }}</td>
                                 <td>{{ $rdv->date_rdv }}</td>
                                 <td>{{ $rdv->client->nom }}</td>
                                 <td>{{ $rdv->pays->libelle }}</td>
                                 <td>{{ $rdv->typeVisa->libelle }}</td>
-                                <td>  @foreach($rdv->uploads as $upload)
-                                    <a href="{{ route('listerdv.download', ['id' => $upload->id]) }}" download>{{ $upload->nom_fichier }}</a><br>
-                                @endforeach</td>
+                                <td>
+                                    @foreach($rdv->uploads as $upload)
+                                        <a href="{{ route('listerdv.download', ['id' => $upload->id]) }}" download>{{ $upload->nom_fichier }}</a><br>
+                                    @endforeach
+                                </td>
                                 <td>En cours</td>
                                 <td>
-                                    <form id="confirmerRdvForm" action="{{ route('listerdv.update', $rdv->id) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit" class="btn btn-success"><i class="fas fa-check"></i></button>
-                                    </form>
-                                    <form id="refuserRdvForm" action="{{ route('listerdv.destroy', $rdv->id) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-times"></i></button>
-                                    </form>
+                                    <div class="d-flex">
+                                        <form id="confirmerRdvForm" action="{{ route('listerdv.update', $rdv->id) }}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="btn btn-success"><i class="fas fa-check"></i></button>
+                                        </form>
+                                        <form id="refuserRdvForm" action="{{ route('listerdv.destroy', $rdv->id) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-danger"><i class="fas fa-times"></i></button>
+                                        </form>
+                                    </div>
                                 </td>
+                                
                             </tr>
                         @endforeach
-
                     </tbody>
                 </table>
             </div>
+            
         </div>
     </div>
 <!-- Modal -->
@@ -98,6 +104,8 @@
                                 <th>email</th>
                                 <th>Pays</th>
                                 <th>Type RDV</th>
+                                <th>Type RDV</th>
+
                             </tr>
                         </thead>
                         <tfoot>
@@ -110,10 +118,14 @@
                                 <th>email</th>
                                 <th>Pays</th>
                                 <th>Type RDV</th>
+                                <th>Type RDV</th>
+
                             </tr>
                         </tfoot>
                         <tbody>
-                            @foreach ($rdvs->where('etat', 1) as $rdv)
+                            @foreach ($rdvs->where('etat', 1)->filter(function ($rdv) {
+                                return $rdv->updated_at >= now()->subDays(7);
+                            }) as $rdv)
                                 <tr>
                                     <td>{{ $rdv->num_passport }}</td>
                                     <td>{{ $rdv->date_rdv }}</td>
@@ -123,9 +135,13 @@
                                     <td>{{ $rdv->client->email }}</td>
                                     <td>{{ $rdv->pays->libelle }}</td>
                                     <td>{{ $rdv->typeVisa->libelle }}</td>
+                                    <td>{{ $rdv->updated_at }}</td>
+
                                 </tr>
                             @endforeach
                         </tbody>
+                        
+                        
                     </table>
                 </div>
             </div>
@@ -163,11 +179,12 @@
         $(document).ready(function() {
             $('#dataTableAcceptes').DataTable({
                 searching: true,
-                paging: false,
+                paging: true,
                 info: false,
                 dom: 'Bfrtip',
                 buttons: [
                     'excel'
+
                 ]
             });
         });

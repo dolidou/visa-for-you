@@ -30,7 +30,7 @@ class ListeRdvController extends Controller
 
     public function update($id)
     {
-      
+    //   dd($id);
 
         DemandeRdv::whereId($id)->update(['etat' => 1]);
 
@@ -40,6 +40,7 @@ class ListeRdvController extends Controller
 
     public function destroy($id)
     {
+        // dd($id);
         DemandeRdv::whereId($id)->update(['etat' => 2]);
 
         return redirect()->route('listerdv.index')->with('success', 'rdv mis à jour avec succès');
