@@ -35,6 +35,8 @@ Route::get('/get-disponibilites/{type_visa_id}/{pays_id}', 'App\Http\Controllers
 Route::get('/listerdv', 'App\Http\Controllers\ListeRdvController@index');
 Route::resource('/listerdv', 'App\Http\Controllers\ListeRdvController')->names('listerdv');
 Route::get('/listerdv/download/{id}', 'App\Http\Controllers\ListeRdvController@downloadFile')->name('listerdv.download');
+Route::resource('pays', 'App\Http\Controllers\PaysController');
+Route::resource('typevisas', 'App\Http\Controllers\TypeVisaController')->names('type_visa');
 
 
 
