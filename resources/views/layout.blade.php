@@ -55,7 +55,7 @@
         
             <!-- Nav Item - Type de Visa -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/typevisas">
                     <i class="fas fa-fw fa-passport"></i>
                     <span>Type de Visa</span></a>
             </li>
