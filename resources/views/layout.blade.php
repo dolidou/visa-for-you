@@ -22,7 +22,16 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
+<style>
+    /* Dans votre fichier styles.css */
+.background-image {
+    background-image: url('img/bckgd2.jpg');
+    background-size: cover; /* Ajuste la taille de l'image pour remplir complètement le conteneur */
+    background-position: center; /* Centre l'image dans le conteneur */
+    background-repeat: no-repeat; /* Empêche la répétition de l'image */
+}
 
+</style>
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -49,7 +58,7 @@
                     <span>RDV Visa</span></a>
             </li>
             
-        
+        @if (Auth::user())
             <!-- Divider -->
             <hr class="sidebar-divider">
         
@@ -70,6 +79,8 @@
                     <i class="fas fa-calendar-alt"></i>
                     <span>Liste RDV</span></a>
             </li>
+        @else
+        @endif
             <!-- Divider -->
             <hr class="sidebar-divider">
         
@@ -88,11 +99,13 @@
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
-            <div id="content">
+            <div id="content" class="background-image">
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
+                    <marquee behavior="scroll" direction="left">
+                        Contenu qui défile...
+                    </marquee>
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
@@ -100,12 +113,13 @@
                 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-                
+                       
                         <!-- Nav Item - User Information -->
+                        @if (Auth::user())
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Auth::user()->name }}</span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -116,22 +130,21 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                             </div>
                         </li>
-                
+                        @else
+                        @endif
+                       
                     </ul>
                 
                 </nav>
@@ -139,7 +152,10 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid ">
+                   
+                    
+
                     @yield('content')
                 
                 </div>
@@ -152,7 +168,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; Doli 2024</span>
                     </div>
                 </div>
             </footer>

@@ -6,7 +6,7 @@ use App\Http\Controllers\ProfileController;
 
 // Routes publiques
 Route::get('/', function () {
-    return view('layout');
+    return view('dashboard');
 });
 
 Route::resource('rdv', DemandeRdvController::class)->names('demanderdv');
@@ -31,4 +31,3 @@ Route::middleware(['auth'])->group(function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

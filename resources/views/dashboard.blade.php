@@ -1,17 +1,27 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layout')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
-                </div>
+@section('title', 'Accueil')
+
+@section('content')
+<style>
+   .text-purple {
+    color: white !important;
+    font-weight: bold;
+    font-size: 24px; /* Taille de police personnalisée */
+
+}
+
+</style>
+<div class="row justify-content-center align-items-center vh-100">
+    <div class="col-8">
+        <div class="card text-purple bg-transparent">
+            <div class="card-body">
+                <h2 class="card-title text-purple">Bienvenue dans le portail des RDV de visa.</h2>
+                <p class="card-text text-purple">Nous proposons divers RDV de visa pour l'espace Schengen. Nous prenons également en charge tous les dossiers pour le visa électronique. Suivez ce lien pour commencer à prendre votre rendez-vous :</p>
+                <a href="/rdv" class="btn btn-primary">Prendre un RDV</a>
             </div>
         </div>
     </div>
-</x-app-layout>
+    
+</div>
+@endsection

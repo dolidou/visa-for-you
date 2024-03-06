@@ -5,7 +5,6 @@
 @section('title', 'LISTE RDV')
 
 @section('content')
-    <h1>Welcome to my List!</h1>
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Liste des rendez-vous en cours</h6>

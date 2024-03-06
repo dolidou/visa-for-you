@@ -4,7 +4,6 @@
 
 @section('content')
 <div class="container">
-    <h1>Liste des Types de Visa</h1>
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Liste des types de visa</h6>

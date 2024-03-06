@@ -6,19 +6,37 @@
 
 @section('content')
     <div>
-        <h2>Rendez vous de Visa </h2>
-        <br>
-        <div class="row" id="checking">
-            <div class="col-6">
-                <input type="checkbox" id="visa_normal" name="visa_normal">
-                <label for="visa_normal">RDV Visa Normal</label><br>
+        <div class="container">
+            <div class="text-center">
+                <h2 class="text-black">Rendez vous de Visa</h2>
             </div>
-            <div class="col-6">
-                <input type="checkbox" id="visa_electronique" name="visa_electronique">
-                <label for="visa_electronique">RDV Visa Electronique</label><br>
+        </div>
+        <br>
+        <div class="d-flex justify-content-center">
+          <div class="card shadow mb-4 col-6 bg-light" id="checking">
+        
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary">Prennez RDV</h6>
             </div>
 
+            <div class="card-body">
+                <div class="row" >
+                    <div class="col-6">
+                        <input type="checkbox" id="visa_normal" name="visa_normal">
+                        <label for="visa_normal">RDV Visa Normal</label><br>
+                    </div>
+                    <div class="col-6">
+                        <input type="checkbox" id="visa_electronique" name="visa_electronique">
+                        <label for="visa_electronique">RDV Visa Electronique</label><br>
+                    </div>
+        
+                </div>
+
+            </div>
+       
+          </div>
         </div>
+      
     </div>
     <div id="visa_normal_form" style="display: none;">
     <div class="row">
