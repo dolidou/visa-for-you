@@ -15,4 +15,10 @@ class Pays extends Model
         return $this->belongsToMany(TypeVisa::class, 'pays_type_visa', 'pays_id', 'type_visa_id');
     }
 
+    public function typesVisa()
+{
+    return $this->belongsToMany(TypeVisa::class, 'pays_type_visa', 'pays_id', 'type_visa_id');
+}
+
+
 }

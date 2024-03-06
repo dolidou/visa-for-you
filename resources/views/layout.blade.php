@@ -59,6 +59,11 @@
                     <i class="fas fa-fw fa-passport"></i>
                     <span>Type de Visa</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pays">
+                    <i class="fas fa-fw fa-globe"></i>
+                    <span>Pays</span></a>
+            </li>
         
             <li class="nav-item">
                 <a class="nav-link" href="/listerdv">

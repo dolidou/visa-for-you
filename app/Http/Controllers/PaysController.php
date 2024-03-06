@@ -3,82 +3,74 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Pays;
+use App\Models\TypeVisa;
+
+
 
 class PaysController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $Pays = Pays::all();
+        $allTypesVisa=TypeVisa::all();
+        return view('visa.pays', compact('Pays','allTypesVisa'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'code' => 'required|string|unique:type_visas',
+            'libelle' => 'required|string',
+           
+        ]);
+
+        Pays::create([
+            'code' => $request->code,
+            'libelle' => $request->libelle,
+        ]);
+
+        return redirect()->route('pays.index')->with('success', 'pays enregistré avec succès');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function edit(Pays $Pays)
     {
-        //
+        
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'code' => 'required|string',
+            'libelle' => 'required',
+           
+        ]);
+
+       
+        Pays::whereId($id)->update($validatedData);
+
+        return redirect()->route('pays.index')->with('success', 'Pays mis à jour avec succès');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+       
+        
+        Pays::whereId($id)->delete();
+       
+
+        return redirect()->route('pays.index')->with('success', 'Pays supprimé avec succès');
     }
+
+    public function ajouterTypeVisa(Request $request, Pays $pays)
+{
+    $pays->typesVisa()->attach($request->type_visa_id);
+    return redirect()->back()->with('success', 'Type de visa ajouté avec succès');
+}
+
 }
