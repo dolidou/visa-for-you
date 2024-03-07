@@ -2,10 +2,24 @@
 
 @section('content')
 <div class="container">
+    <style>
+        .bg-custom {
+              /* background: linear-gradient(135deg, #000000, #737373); */
+              /* background-color: #a73f7d; */
+              background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+          }
+          label {
+              color: white; /* Couleur du texte en blanc */
+          }
+          .btn-submit {
+                          background-color: #a73f7d;
+  
+          }
+  </style>
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+            <div class="card bg-custom">
+                <div class="card-header bg-custom text-white">{{ __('Register') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -63,7 +77,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn bg-custom1 text-white">
                                     {{ __('Register') }}
                                 </button>
                             </div>

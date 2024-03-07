@@ -5,45 +5,60 @@
 @section('title', 'RDV')
 
 @section('content')
+    <style>
+        .bg-custom {
+            /* background: linear-gradient(135deg, #000000, #737373); */
+            /* background-color: #a73f7d; */
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+        }
+        label {
+            color: white; /* Couleur du texte en blanc */
+        }
+    </style>
     <div>
         <div class="container">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div class="text-center">
                 <h2 class="text-black">Rendez vous de Visa</h2>
             </div>
         </div>
         <br>
-        <div class="d-flex justify-content-center">
-          <div class="card shadow mb-4 col-6 bg-light" id="checking">
-        
-            <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                <h6 class="m-0 font-weight-bold text-primary">Prennez RDV</h6>
-            </div>
+        <div class="d-flex justify-content-left ">
+            <div class="card shadow mb-4 col-6 bg-custom" id="checking">
 
-            <div class="card-body">
-                <div class="row" >
-                    <div class="col-6">
-                        <input type="checkbox" id="visa_normal" name="visa_normal">
-                        <label for="visa_normal">RDV Visa Normal</label><br>
+                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-custom">
+                    <h6 class="m-0 font-weight-bold text-light">Prennez RDV</h6>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="checkbox" id="visa_normal" name="visa_normal">
+                            <label for="visa_normal" class="text-light">RDV Visa Normal</label><br>
+                        </div>
+                        <div class="col-6">
+                            <input type="checkbox" id="visa_electronique" name="visa_electronique">
+                            <label for="visa_electronique" class="text-light">RDV Visa Electronique</label><br>
+                        </div>
+
                     </div>
-                    <div class="col-6">
-                        <input type="checkbox" id="visa_electronique" name="visa_electronique">
-                        <label for="visa_electronique">RDV Visa Electronique</label><br>
-                    </div>
-        
+
                 </div>
 
             </div>
-       
-          </div>
         </div>
-      
+
     </div>
     <div id="visa_normal_form" style="display: none;">
-    <div class="row">
+        <div class="row">
             <div class="col-6">
-                <div class="card shadow mb-4" id="initial">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Prise de RDV VISA Normal</h6>
+                <div class="card shadow mb-4 bg-custom" id="initial">
+                    <div class="card-header py-3 bg-custom">
+                        <h6 class="m-0 font-weight-bold text-white">Prise de RDV VISA Normal</h6>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('demanderdv.store') }}" enctype="multipart/form-data">
@@ -66,7 +81,8 @@
                                 </div>
                                 <div id="num_passport_field" style="display:none;">
                                     <label for="num_passport">Numéro de passeport</label>
-                                    <input type="text" class="form-control" id="num_passport" name="num_passport">
+                                    <input type="text" class="form-control" id="num_passport" name="num_passport"
+                                        required>
                                     <br>
                                     <button type="button" class="btn btn-primary" id="check_rdv_button">suivant</button>
                                 </div>
@@ -82,35 +98,37 @@
                 </div>
             </div>
             <div class="col-6">
-                <div class="card shadow mb-4" id="suite" style="display: none">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Prise de RDV VISA</h6>
+                <div class="card shadow mb-4 bg-custom" id="suite" style="display: none">
+                    <div class="card-header py-3 bg-custom">
+                        <h6 class="m-0 font-weight-bold text-light">Prise de RDV VISA</h6>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
                             <label for="nom">Nom</label>
-                            <input type="text" class="form-control" id="nom" name="nom">
+                            <input type="text" class="form-control" id="nom" name="nom" required>
                         </div>
                         <div class="form-group">
                             <label for="prenom">Prénom</label>
-                            <input type="text" class="form-control" id="prenom" name="prenom">
+                            <input type="text" class="form-control" id="prenom" name="prenom" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email">
+                            <input type="email" class="form-control" id="email" name="email" required>
                         </div>
                         <div class="form-group">
                             <label for="tel">Numéro de téléphone</label>
-                            <input type="tel" class="form-control" id="tel" name="num_tel">
+                            <input type="tel" class="form-control" id="tel" name="num_tel" required>
                         </div>
                         <div class="form-group">
                             <label for="date_rdv">Date de rendez-vous souhaitée</label>
-                            <input type="date" class="form-control" id="date_rdv" name="date_rdv">
+                            <input type="date" class="form-control" id="date_rdv" name="date_rdv"
+                                min="<?= date('Y-m-d') ?>" required>
                         </div>
-                        <label for="files" style="color:brown"><i class="fas fa-hand-point-down"></i> Importer la copie de la première page de votre passport 
+                        <label for="files" style="color:brown"><i class="fas fa-hand-point-down"></i> Importer la
+                            copie de la première page de votre passport
                         </label>
 
-                        <input type="file" name="uploads[]" id="files" multiple>
+                        <input type="file" name="uploads[]" id="files" multiple required>
                         {{-- <div id="fileInputsContainer">
                         <!-- Container pour les champs d'upload de fichiers -->
                         <div class="fileInputContainer">
@@ -124,92 +142,93 @@
                     </div>
                 </div>
             </div>
-        
-        <div class="col-12 text-center">
-            <button type="submit" class="btn btn-primary" id="soumission" style="display: none">Soumettre</button>
+
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-primary" id="soumission" style="display: none">Soumettre</button>
+            </div>
+            <br>
+
+            </form>
         </div>
-        <br>
-
-        </form>
-    </div>
     </div>
 
-<div id="visa_electronique_form" style="display: none;">
-    <div class="row" >
+    <div id="visa_electronique_form" style="display: none;">
+        <div class="row">
 
-        <div class="col-6">
-            <div class="card shadow mb-4" id="initial">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Prise de RDV VISA Electronique</h6>
-                </div>
-                <div class="card-body">
-                    <form method="POST" action="{{ route('demanderdv.store') }}" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                            <label for="pays">Pays</label>
-                            <select class="form-control" id="pays_electronique" name="pays_id">
-                                <option value="">Sélectionner un pays</option>
-                                @foreach ($payselectronique as $pay)
-                                    <option value="{{ $pay->id }}" data-icon="flag-icon flag-icon-fr">
-                                        {{ $pay->libelle }}</option>
-                                @endforeach
-                            </select>
-                            <br>
-                            <div class="form-group" id="type_electronique" style="display: none;">
-                                <label for="type_visa_electronique">Type de Visa</label>
-                                <select class="form-control" id="type_visa_electronique" name="type_visa_id">
-                                    <option value="">Sélectionner un type de visa</option>
+            <div class="col-6">
+                <div class="card shadow mb-4 bg-custom" id="initial">
+                    <div class="card-header py-3 bg-custom">
+                        <h6 class="m-0 font-weight-bold text-light">Prise de RDV VISA Electronique</h6>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('demanderdv.store') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label for="pays">Pays</label>
+                                <select class="form-control" id="pays_electronique" name="pays_id">
+                                    <option value="">Sélectionner un pays</option>
+                                    @foreach ($payselectronique as $pay)
+                                        <option value="{{ $pay->id }}" data-icon="flag-icon flag-icon-fr">
+                                            {{ $pay->libelle }}</option>
+                                    @endforeach
                                 </select>
-                            </div>
-                            <div id="num_passport_field_electronique" style="display:none;">
-                                <label for="num_passport_electronique">Numéro de passeport</label>
-                                <input type="text" class="form-control" id="num_passport_electronique"
-                                    name="num_passport">
                                 <br>
-                                <button type="button" class="btn btn-primary"
-                                    id="check_rdv_button_electronique">suivant</button>
-                            </div>
-                            <div id="verification_message">
+                                <div class="form-group" id="type_electronique" style="display: none;">
+                                    <label for="type_visa_electronique">Type de Visa</label>
+                                    <select class="form-control" id="type_visa_electronique" name="type_visa_id">
+                                        <option value="">Sélectionner un type de visa</option>
+                                    </select>
+                                </div>
+                                <div id="num_passport_field_electronique" style="display:none;">
+                                    <label for="num_passport_electronique">Numéro de passeport</label>
+                                    <input type="text" class="form-control" id="num_passport_electronique"
+                                        name="num_passport">
+                                    <br>
+                                    <button type="button" class="btn btn-primary"
+                                        id="check_rdv_button_electronique">suivant</button>
+                                </div>
+                                <div id="verification_message">
+
+                                </div>
+
 
                             </div>
+                            <!-- Ajoutez les autres champs du formulaire ici -->
 
-
-                        </div>
-                        <!-- Ajoutez les autres champs du formulaire ici -->
-
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-6">
-            <div class="card shadow mb-4" id="suite_electronique" style="display: none">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Prise de RDV VISA</h6>
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="nom">Nom</label>
-                        <input type="text" class="form-control" id="nom" name="nom">
+            <div class="col-6">
+                <div class="card shadow mb-4 bg-custom" id="suite_electronique" style="display: none">
+                    <div class="card-header py-3 bg-custom">
+                        <h6 class="m-0 font-weight-bold text-light">Prise de RDV VISA</h6>
                     </div>
-                    <div class="form-group">
-                        <label for="prenom">Prénom</label>
-                        <input type="text" class="form-control" id="prenom" name="prenom">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="tel">Numéro de téléphone</label>
-                        <input type="tel" class="form-control" id="tel" name="num_tel">
-                    </div>
-                    <div class="form-group">
-                        <label for="date_rdv">Date de rendez-vous souhaitée</label>
-                        <input type="date" class="form-control" id="date_rdv" name="date_rdv">
-                    </div>
-                    <label for="files" style="color:brown"><i class="fas fa-hand-point-down"></i> Importer la copie de la première page de votre passport 
-                        <br>
-                    <input type="file" name="uploads[]" id="files" multiple>
-                    {{-- <div id="fileInputsContainer">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="nom">Nom</label>
+                            <input type="text" class="form-control" id="nom" name="nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prenom">Prénom</label>
+                            <input type="text" class="form-control" id="prenom" name="prenom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tel">Numéro de téléphone</label>
+                            <input type="tel" class="form-control" id="tel" name="num_tel" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="date_rdv">Date de rendez-vous souhaitée</label>
+                            <input type="date" class="form-control" id="date_rdv" name="date_rdv" required>
+                        </div>
+                        <label for="files" style="color:brown"><i class="fas fa-hand-point-down"></i> Importer la
+                            copie de la première page de votre passport
+                            <br>
+                            <input type="file" name="uploads[]" id="files" multiple required>
+                            {{-- <div id="fileInputsContainer">
                         <!-- Container pour les champs d'upload de fichiers -->
                         <div class="fileInputContainer">
                             <button class="attachButton btn-primary" onclick="addFileInput(event)"><i
@@ -219,20 +238,20 @@
                                     class="fas fa-trash-alt"></i></button>
                         </div>
                     </div> --}}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-12 text-center">
-            <button type="submit" class="btn btn-primary" id="soumission_electronique"
-                style="display: none">Soumettre</button>
-        </div>
-        <br>
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-primary" id="soumission_electronique"
+                    style="display: none">Soumettre</button>
+            </div>
+            <br>
 
-        </form>
+            </form>
 
+        </div>
     </div>
-</div>
-  
+
 
 @endsection
 
@@ -295,7 +314,7 @@
     </script>
     <script>
         $(document).ready(function() {
-         
+
             $('#pays').change(function() {
                 $('#type_visa').val('').change();
                 $('#num_passport').val('');
@@ -341,6 +360,11 @@
             var type_visa_id = $('#type_visa').val();
             var pays_id = $('#pays').val();
             console.log(num_passport);
+            // Vérifier si le champ du numéro de passeport est vide
+            if (num_passport.trim() === '') {
+                alert('Veuillez saisir un numéro de passeport.');
+                return; // Arrêter l'exécution si le champ est vide
+            }
 
             $.ajax({
                 url: '/check-rdv-exists',
@@ -417,6 +441,11 @@
             var type_visa_id = $('#type_visa_electronique').val();
             var pays_id = $('#pays').val();
             console.log(num_passport);
+            // Vérifier si le champ du numéro de passeport est vide
+            if (num_passport.trim() === '') {
+                alert('Veuillez saisir un numéro de passeport.');
+                return; // Arrêter l'exécution si le champ est vide
+            }
 
             $.ajax({
                 url: '/check-rdv-exists',

@@ -5,6 +5,11 @@
 @section('title', 'LISTE RDV')
 
 @section('content')
+<style>
+    .small {
+    font-size: 13px; /* Taille de la police réduite */
+}
+</style>
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Liste des rendez-vous en cours</h6>
@@ -17,34 +22,34 @@
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                        <tr>
-                            <th>ID</th>
+                        <tr class="small">
+                            <th style="width: 5%">ID</th>
                             <th style="width: 10%">N° de passeport</th>
                             <th style="width: 10%">Date RDV</th>
                             <th style="width: 10%">Nom du client</th>
                             <th style="width: 10%">Pays</th>
-                            <th style="width: 15%">Type RDV</th>
-                            <th style="width: 10%">Fichier Joints</th>
+                            <th style="width: 5%">Type RDV</th>
+                            <th style="width: 5%">Fichier Joints</th>
                             <th style="width: 10%">Statut</th>
                             <th style="width: 10%">Action</th>
                         </tr>
                     </thead>
                     <tfoot>
-                        <tr>
-                            <th>ID</th>
-                            <th>Numéro de passeport</th>
-                            <th>Date du rendez-vous</th>
-                            <th>Nom du client</th>
-                            <th>Pays</th>
-                            <th>Type de rendez-vous</th>
-                            <th>Fichier Joints</th>
-                            <th>Statut</th>
-                            <th>Action</th>
+                        <tr class="small">
+                            <th style="width: 5%">ID</th>
+                            <th style="width: 10%">N° de passeport</th>
+                            <th style="width: 10%">Date RDV</th>
+                            <th style="width: 10%">Nom du client</th>
+                            <th style="width: 5%">Pays</th>
+                            <th style="width: 15%">Type RDV</th>
+                            <th style="width: 5%">Fichier Joints</th>
+                            <th style="width: 10%">Statut</th>
+                            <th style="width: 10%">Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
                         @foreach ($rdvs->where('etat', 0) as $rdv)
-                            <tr>
+                            <tr class="small">
                                 <td>{{ $rdv->id }}</td>
                                 <td>{{ $rdv->num_passport }}</td>
                                 <td>{{ $rdv->date_rdv }}</td>
@@ -94,30 +99,28 @@
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTableAcceptes" cellspacing="0">
                         <thead>
-                            <tr>
-                                <th>N° de passeport</th>
-                                <th>Date RDV</th>
-                                <th>Nom du client</th>
-                                <th>prénom</th>
-                                <th>N° tel</th>
-                                <th>email</th>
-                                <th>Pays</th>
-                                <th>Type RDV</th>
-                                <th>Type RDV</th>
+                            <tr class="small">
+                                <th  style="width: 10%">N° de passeport</th>
+                                <th  style="width: 10%">Date RDV</th>
+                                <th  style="width: 10%">Nom du client</th>
+                                <th  style="width: 10%">prénom</th>
+                                <th  style="width: 10%">N° tel</th>
+                                <th  style="width: 10%">email</th>
+                                <th  style="width: 10%">Pays</th>
+                                <th  style="width: 10%">Type RDV</th>
 
                             </tr>
                         </thead>
                         <tfoot>
-                            <tr>
-                                <th>N° de passeport</th>
-                                <th>Date RDV</th>
-                                <th>Nom du client</th>
-                                <th>prénom</th>
-                                <th>N° tel</th>
-                                <th>email</th>
-                                <th>Pays</th>
-                                <th>Type RDV</th>
-                                <th>Type RDV</th>
+                            <tr class="small">
+                                <th  style="width: 10%">N° de passeport</th>
+                                <th  style="width: 10%">Date RDV</th>
+                                <th  style="width: 10%">Nom du client</th>
+                                <th  style="width: 10%">prénom</th>
+                                <th  style="width: 10%">N° tel</th>
+                                <th  style="width: 10%">email</th>
+                                <th  style="width: 10%">Pays</th>
+                                <th  style="width: 10%">Type RDV</th>
 
                             </tr>
                         </tfoot>
@@ -125,7 +128,7 @@
                             @foreach ($rdvs->where('etat', 1)->filter(function ($rdv) {
                                 return $rdv->updated_at >= now()->subDays(7);
                             }) as $rdv)
-                                <tr>
+                                <tr class="small">
                                     <td>{{ $rdv->num_passport }}</td>
                                     <td>{{ $rdv->date_rdv }}</td>
                                     <td>{{ $rdv->client->nom }}</td>
@@ -134,7 +137,6 @@
                                     <td>{{ $rdv->client->email }}</td>
                                     <td>{{ $rdv->pays->libelle }}</td>
                                     <td>{{ $rdv->typeVisa->libelle }}</td>
-                                    <td>{{ $rdv->updated_at }}</td>
 
                                 </tr>
                             @endforeach

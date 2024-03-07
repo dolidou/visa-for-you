@@ -127,7 +127,7 @@ if ($request->hasFile('uploads')) {
 }
 
 
-    return redirect()->route('demanderdv.index')->with('success', 'Votre demande de RDV a été enregistrée avec succès.');
+    return redirect()->route('demanderdv.index')->with('success', 'Votre demande de RDV a été enregistrée avec succès nous reviendrons vers vous dés que possible merci de patienter :)');
 }
 
 

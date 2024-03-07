@@ -31,6 +31,38 @@
     background-repeat: no-repeat; /* Empêche la répétition de l'image */
 }
 
+    .bg-custom1 {
+        background: linear-gradient(135deg, #000000, #5333cd);
+    /* background-color: #a73f7d; */
+
+}
+.bg-custom2 {
+        background: linear-gradient(135deg, #832eff, #fe4ff2);
+    /* background-color: #a73f7d; */
+
+}
+
+.marquee {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.marquee span {
+    display: inline-block;
+    padding-right: 100%;
+    animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
+.country-name {
+    margin-left: 5px; /* Ajoutez la quantité d'espace souhaitée */
+}
+
 </style>
 <body id="page-top">
 
@@ -38,7 +70,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-custom1 sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
@@ -102,9 +134,36 @@
             <div id="content" class="background-image">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <marquee behavior="scroll" direction="left">
-                        Contenu qui défile...
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow bg-custom1">
+                    <marquee behavior="scroll" direction="left" class="text-white">
+                        <span>Nous proposons divers RDV de visa normal pour les pays suivants : </span>
+        <span><i class="flag-icon flag-icon-fr"></i> <span class="country-name">France</span></span>
+        <span><i class="flag-icon flag-icon-it"></i> <span class="country-name">Italie</span></span>
+        <span><i class="flag-icon flag-icon-be"></i> <span class="country-name">Belgique</span></span>
+        <span><i class="flag-icon flag-icon-at"></i> <span class="country-name">Autriche</span></span>
+        <span><i class="flag-icon flag-icon-de"></i> <span class="country-name">Allemagne</span></span>
+        <span><i class="flag-icon flag-icon-gr"></i> <span class="country-name">Grèce</span></span>
+        <span><i class="flag-icon flag-icon-mt"></i> <span class="country-name">Malte</span></span>
+        <span><i class="flag-icon flag-icon-ch"></i> <span class="country-name">Suisse</span></span>
+        <span>et RDV électronique pour les pays suivants : </span>
+        <span><i class="flag-icon flag-icon-eg"></i> <span class="country-name">Égypte</span></span>
+        <span><i class="flag-icon flag-icon-tr"></i> <span class="country-name">Turquie</span></span>
+        <span><i class="flag-icon flag-icon-id"></i> <span class="country-name">Indonésie</span></span>
+        <span><i class="flag-icon flag-icon-sg"></i> <span class="country-name">Singapour</span></span>
+        <span><i class="flag-icon flag-icon-ru"></i> <span class="country-name">Russie</span></span>
+        <span><i class="flag-icon flag-icon-cn"></i> <span class="country-name">Chine</span></span>
+        <span><i class="flag-icon flag-icon-qa"></i> <span class="country-name">Qatar</span></span>
+        <span><i class="flag-icon flag-icon-lb"></i> <span class="country-name">Liban</span></span>
+        <span><i class="flag-icon flag-icon-az"></i> <span class="country-name">Azerbaïdjan</span></span>
+        <span><i class="flag-icon flag-icon-tz"></i> <span class="country-name">Tanzanie</span></span>
+        <span><i class="flag-icon flag-icon-uz"></i> <span class="country-name">Ouzbékistan</span></span>
+        <span><i class="flag-icon flag-icon-ke"></i> <span class="country-name">Kenya</span></span>
+        <span><i class="flag-icon flag-icon-et"></i> <span class="country-name">Éthiopie</span></span>
+        <span><i class="flag-icon flag-icon-vn"></i> <span class="country-name">Vietnam</span></span>
+        <span><i class="flag-icon flag-icon-dj"></i> <span class="country-name">Djibouti</span></span>
+        <span><i class="flag-icon flag-icon-lk"></i> <span class="country-name">Sri Lanka</span></span>
+        <span><i class="flag-icon flag-icon-kh"></i> <span class="country-name">Cambodge</span></span>
+
                     </marquee>
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -119,7 +178,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Auth::user()->name }}</span>
+                                <span class="mr-2 d-none d-lg-inline font-weight-bold text-white-600 small"> {{ Auth::user()->name }}</span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -165,7 +224,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
+            <footer class="sticky-footer bg-custom1">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
                         <span>Copyright &copy; Doli 2024</span>

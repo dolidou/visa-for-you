@@ -146,7 +146,7 @@
                                                                                 @endforeach
                                                                             </select>
                                                                             <div class="input-group-append">
-                                                                                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">+</button>
+                                                                                <button class="btn btn-outline-light bg-custom1" type="submit" id="button-addon2">+</button>
                                                                             </div>
                                                                         </div>
                                                                     </form>

@@ -10,10 +10,14 @@
     font-size: 24px; /* Taille de police personnalisée */
 
 }
+.bg-custom {
+    /* background: linear-gradient(135deg, #000000, #3533cd); */
+    background-color: #3c205d;
 
+}
 </style>
-<div class="row justify-content-center align-items-center vh-100">
-    <div class="col-8">
+<div class="row justify-content align-items-center vh-50" >
+    <div class="col-3">
         <div class="card text-purple bg-transparent">
             <div class="card-body">
                 <h2 class="card-title text-purple">Bienvenue dans le portail des RDV de visa.</h2>
