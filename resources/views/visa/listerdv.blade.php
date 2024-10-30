@@ -7,7 +7,7 @@
 @section('content')
 <style>
     .small {
-    font-size: 13px; /* Taille de la police réduite */
+    font-size: 15px; /* Taille de la police réduite */
 }
 </style>
     <div class="card shadow mb-4">

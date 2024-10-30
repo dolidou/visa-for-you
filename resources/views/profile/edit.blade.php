@@ -1,6 +1,20 @@
 @extends('layout')
 
 @section('content')
+<style>
+   .bg-custom {
+            /* background: linear-gradient(135deg, #000000, #737373); */
+            /* background-color: #a73f7d; */
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+        }
+        label {
+            color: white; /* Couleur du texte en blanc */
+        }
+        .btn-submit {
+                        background-color: #a73f7d;
+
+        }
+</style>
   <div class="content">
     <div class="container-fluid">
   
@@ -20,15 +34,15 @@
             </div>
           </div>
         @endif
-            <div class="card card-success">
-              <div class="card-header">
-                <h4 class="card-title">Information Utilisateur</h4>
+            <div class="card bg-custom">
+              <div class="card-header bg-custom">
+                <h4 class="card-title text-white">Information Utilisateur</h4>
                 
               </div>
               <div class="card-body ">
                
                 <div class="row">
-                  <label class="col-sm-3 col-form-label" for="input-current-password">Nom Utilisateur</label>
+                  <label class="col-sm-3 col-form-label" for="input-current-password"></label>
                   <div class="col-sm-7">
                     <div class="form-group">
                       <input class="form-control" input type="text" name="name_user"   value="{{Auth::user()->name}} " readonly />
@@ -37,7 +51,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-sm-3 col-form-label" for="input-password">Utilisateur</label>
+                  <label class="col-sm-3 col-form-label" for="input-password"></label>
                   <div class="col-sm-7">
                     <div class="form-group">
                       <input class="form-control" name="password" id="input-password" type="texte"  value="{{Auth::user()->email}} " readonly />
@@ -45,18 +59,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <label class="col-sm-3 col-form-label" for="input-password">Département</label>
-                  <div class="col-sm-7">
-                    <div class="form-group">
-                      <input class="form-control" name="password" id="input-password" type="texte"    
-                      
-                        value="{{ Auth::user()->departement->libelle }}"
-                    readonly />
-                     
-                    </div>
-                  </div>
-                </div>
+               
       </div>
       <div class="row justify-content-center">
         <div class="col-md-12">
@@ -64,15 +67,15 @@
             @csrf
             @method('put')
 
-            <div class="card card-success">
-              <div class="card-header">
-                <h4 class="card-title">Changement du Mot de passe</h4>
+            <div class="card bg-custom">
+              <div class="card-header bg-custom">
+                <h4 class="card-title text-white">Changement du Mot de passe</h4>
                 
               </div>
               <div class="card-body ">
                
                 <div class="row">
-                  <label class="col-sm-3 col-form-label" for="input-current-password">Ancien Mot de Passe</label>
+                  <label class="col-sm-3 col-form-label" for="input-current-password"></label>
                   <div class="col-sm-7">
                     <div class="form-group{{ $errors->has('old_password') ? ' has-danger' : '' }}">
                       <input class="form-control{{ $errors->has('old_password') ? ' is-invalid' : '' }}" input type="password" name="old_password" id="input-current-password" placeholder="{{ __('Ancien Mot de Passe') }}" value="" required />
@@ -83,7 +86,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-sm-3 col-form-label" for="input-password">Nouveau Mot de Passe</label>
+                  <label class="col-sm-3 col-form-label text" for="input-password"></label>
                   <div class="col-sm-7">
                     <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
                       <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" id="input-password" type="password" placeholder="{{ __('Nouveau Mot de Passe') }}" value="" required />
@@ -94,7 +97,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-sm-3 col-form-label" for="input-password-confirmation">Confirmez le nouveau Mot de Passe</label>
+                  <label class="col-sm-3 col-form-label" for="input-password-confirmation"></label>
                   <div class="col-sm-7">
                     <div class="form-group">
                       <input class="form-control" name="password_confirmation" id="input-password-confirmation" type="password" placeholder="{{ __('Confirmer Mot de Passe') }}" value="" required />
@@ -102,8 +105,8 @@
                   </div>
                 </div>
               </div>
-              <div class="card-footer ml-auto mr-auto">
-                <button type="submit" class="btn btn-info">Valider</button>
+              <div class=" ml-auto mr-auto">
+                <button type="submit" class="btn bg-custom1 text-white">Valider</button>
               </div>
             </div>
           </form>
