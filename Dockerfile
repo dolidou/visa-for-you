@@ -2,7 +2,7 @@ FROM php:8.2-apache-buster
 
 # Installer les dépendances système
 RUN apt-get update && apt-get install -y \
-    libzip-dev unzip git curl sqlite3 \
+    libzip-dev unzip git curl sqlite3 libsqlite3-dev \
     && docker-php-ext-install pdo pdo_mysql pdo_sqlite zip
 
 # Installer Composer
