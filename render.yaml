@@ -3,5 +3,5 @@ services:
     name: visa-for-you
     env: docker
     plan: free
-    branch: main
+    branch: master
     repo: https://github.com/dolidou/visa-for-you

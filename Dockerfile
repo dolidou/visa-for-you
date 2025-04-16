@@ -11,6 +11,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copier les fichiers du projet
 COPY . /var/www/html/
 
+# Installer les dépendances Laravel
+RUN cd /var/www/html && composer install --no-dev --optimize-autoloader
+
 # Changer le propriétaire des fichiers
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage
