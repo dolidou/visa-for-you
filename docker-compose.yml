@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: visa_for_you_db  # Nom de la base de données
+      POSTGRES_USER: ton_utilisateur  # Nom d'utilisateur
+      POSTGRES_PASSWORD: ton_mot_de_passe  # Mot de passe de l'utilisateur
+    ports:
+      - "5432:5432"  # Port d'accès à PostgreSQL
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
