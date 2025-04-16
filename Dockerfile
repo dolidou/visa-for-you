@@ -25,9 +25,10 @@ RUN a2enmod rewrite
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 
-# Préparer Laravel (cache clear, key, etc.)
+# Préparer Laravel (copier .env, composer install, artisan)
 WORKDIR /var/www/html
-RUN composer install --no-dev --optimize-autoloader \
+RUN cp .env.example .env \
+    && composer install --no-dev --optimize-autoloader \
     && php artisan config:clear \
     && php artisan route:clear \
     && php artisan view:clear \
