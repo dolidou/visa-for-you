@@ -1,29 +1,37 @@
 FROM php:8.2-apache-buster
 
-# Installer les extensions nécessaires
+# Installer les dépendances système
 RUN apt-get update && apt-get install -y \
-    libzip-dev unzip git curl \
-    && docker-php-ext-install pdo pdo_mysql zip
+    libzip-dev unzip git curl sqlite3 \
+    && docker-php-ext-install pdo pdo_mysql pdo_sqlite zip
 
 # Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copier les fichiers du projet
+# Copier les fichiers de l'app
 COPY . /var/www/html/
 
-# Installer les dépendances Laravel
-RUN cd /var/www/html && composer install --no-dev --optimize-autoloader
+# Créer la DB SQLite
+RUN touch /var/www/html/database/database.sqlite
 
-# Changer le propriétaire des fichiers
+# Changer les permissions
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/storage
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Créer le répertoire public et activer mod_rewrite
-RUN mkdir -p /var/www/html/public && a2enmod rewrite
+# Activer mod_rewrite
+RUN a2enmod rewrite
 
-# Configuration Apache pour Laravel
+# Changer le répertoire racine Apache
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+
+# Préparer Laravel (cache clear, key, etc.)
+WORKDIR /var/www/html
+RUN composer install --no-dev --optimize-autoloader \
+    && php artisan config:clear \
+    && php artisan route:clear \
+    && php artisan view:clear \
+    && php artisan key:generate
 
 # Lancer Apache
 CMD ["apache2-foreground"]
